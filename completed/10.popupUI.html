@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Popup</title>
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
+
+    body {
+      font-family: 'Open Sans';
+      font-weight: 300;
+      background-color: #D6E1E5;
+    }
+
+    h1 {
+      color: #DB5B33;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    /* CSS 작성 바랍니다. */
+    .popup, .popup + .overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .popup {
+      width: 400px;
+      height: 250px;
+      margin: auto;
+      padding: 20px 50px 0;
+      z-index: 10;
+      background: #fff;
+    }
+    .popup .btn-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+    .popup + .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <h1>JavaScript Popup</h1>
+
+  <div class="popup">
+    <h1>JavaScript Popup</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+    <button class="btn-close">X</button>
+    <input type="text">
+    <button class="btn-ok">OK</button>
+    <button class="btn-cancel">Cancel</button>
+  </div>
+  <div class="overlay"></div>
+
+  <button class="toggle-popup">show popup</button>
+
+  <p class="popup-message"></p>
+  <script>
+    const $btnShowPopup = document.querySelector('.toggle-popup');
+    const $popup = document.querySelector('.popup');
+    const $overlay = document.querySelector('.overlay');
+    const $btnClose = document.querySelector('.popup > button.btn-close');
+    const $btnCancel = document.querySelector('.popup > button.btn-cancel');
+    $btnShowPopup.onclick = e => {
+      if (e.target !== $btnShowPopup) return;
+      $popup.style.display = 'block';
+      $overlay.style.display = 'block';
+    };
+
+    $popup.onclick = e => {
+      if (e.target === $btnClose || e.target === $btnCancel) {
+        $popup.style.display = 'none';
+        $overlay.style.display = 'none';
+      }
+    };
+    $overlay.onclick = () => {
+      $popup.style.display = 'none';
+      $overlay.style.display = 'none';
+    };
+  </script>
+</body>
+</html>
