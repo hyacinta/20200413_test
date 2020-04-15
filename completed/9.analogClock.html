@@ -63,7 +63,7 @@
 
     /*test css*/
     .second.hand {
-      transform: rotate();
+      /* transform: rotate(6deg); */
     }
   </style>
 </head>
@@ -83,13 +83,21 @@
     const $digitalClock = document.querySelector('.digital-clock');
     const $hour = document.querySelector('.hour');
     const $minute = document.querySelector('.minute');
-    const $second = document.querySelector('.second');
+    const $second = document.querySelector('.second.hand');
 
     const now = () => {
       const today = new Date();
       const nowHour = today.getHours();
       const nowMinutes = today.getMinutes();
       const nowSeconds = today.getSeconds();
+
+      const hourDeg = ((nowHour - 12) * 30) + (nowMinutes * 0.5) + (nowSeconds * (0.5 / 60));
+      const minuteDeg = (nowMinutes * 6) + (nowSeconds * 0.1);
+      const secondDeg = nowSeconds * 6;
+      $hour.style.transform = `translate3d(-50%, 0, 0) rotate(${hourDeg}deg)`;
+      $minute.style.transform = `translate3d(-50%, 0, 0) rotate(${minuteDeg}deg)`;
+      $second.style.transform = `translate3d(-50%, 0, 0) rotate(${secondDeg}deg)`;
+
       $digitalClock.textContent = `${nowHour < 10 ? '0' + nowHour : nowHour}:${nowMinutes < 10 ? '0' + nowMinutes : nowMinutes}:${nowSeconds < 10 ? '0' + nowSeconds : nowSeconds}`;
     };
     setInterval(now, 1000);
